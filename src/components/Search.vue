@@ -4,7 +4,7 @@
         <input type="text" v-model='newTerm' @input="change(newTerm)"></input>
         <button@click="onTermChange(newTerm)"><i class=" fas fa-search"></i></button>
             <!--@click="change(newTerm)"-->
-            {{ showTerm }}
+
     </div>
 </template>
 <script>
@@ -19,7 +19,9 @@
         name: 'Search',
         data() {
             return {
-                newTerm: ''
+                newTerm: '',
+                videos: [],
+                titles: []
             }
         },
         computed: {
@@ -32,7 +34,7 @@
         },
         watch: {
             showTerm(value) {
-                console.log(`My store value for 'showTerm' changed to ${value}`);
+                //console.log(`My store value for 'showTerm' changed to ${value}`);
                 //onTermChange(this.newTerm);
             }
         },
@@ -57,8 +59,24 @@
                         }
                     })
                     .then(response => {
-                        console.log(response);
+                        console.log(response)
+                        //console.log(response.data.items[0].snippet.title);
                         //this.videos = response.data.items;
+                        //this.$store.dispatch('changeVideo', response.data.items);
+                        //console.log(this.videos.snippet);
+                        //let i = 0;
+                        //for (i = 0; i < response.data.items.length; i++) {
+                        ///this.titles = response.data.items[i].snippet;
+                        //}
+                        //for (i = 0; i < response.data.items.length; i++) {
+                        //console.log(titles[i]);
+                        //}
+                        //this.titles = response.data.items.snippet.title;
+
+                        //this.$store.dispatch('changeVideo', this.video)
+
+                        //this.$store.dispatch('changeTitle', response.data.items[i].snippet.title)
+
                     });
             }
 

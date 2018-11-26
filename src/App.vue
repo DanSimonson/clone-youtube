@@ -1,34 +1,56 @@
 <template>
   <div id="app">
-    <!--<h1>Using Font Awesome "Brand" icons in Vue.js</h1>
-    <p>Have a cup of coffee: <i class="fab fa-youtube"></i></i> </p>
-    <p>Have a module of JavaScript: <i class="fas fa-search"></i></i> </p>
-    <p>Have a module of Vue.js: <i class="fab fa-vuejs"></i> </p>-->
     <div id="content">
       <div id="searchBar">
-        <Search @change="onTermChange"></Search>
+        <div class='searchDiv'>
+          <span><i class="fab fa-youtube">DanTube</i></span>
+          <input type="text" v-model='newTerm' @keyup.enter="onTermChange(newTerm)"></input>
+          <button @click="onTermChange(newTerm)"><i class=" fas fa-search"></i></button>
+        </div>
       </div>
-      <div id="videoDisplay"></div>
-      <div id="videoList"></div>
+      <div id="videoDisplay">
+        <div v-if="selectedVideo">
+          {{selectedVideo.snippet.description}}
+        </div>
+      </div>
+      <div id="videoList">
+        <ul>
+          <li v-for="video in videos" :key="video.etag">
+            <div class='wrapper' @click="onSelect(video)">
+              <div>
+                <img :src="video.snippet.thumbnails.default.url" />
+              </div>
+              <div>
+                {{video.snippet.title}}
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-    <!--
-      <div id="nav">
-        <router-link to="/">Home</router-link> |
-        <router-link to="/about">About</router-link>
-      </div>
-    -->
-    <!-- <router-view/> -->
   </div>
 </template>
 <script>
   import Search from "./components/Search";
+  import List from "./components/List";
+  const API_KEY = "AIzaSyAeieUFVgxZH5g_xpIQTtoLa8SBw8HGJl8";
+  import axios from "axios";
+
   export default {
     name: "App",
     components: {
-      Search
+      Search,
+      List
     },
     data() {
-      return {};
+      return {
+        newTerm: '',
+        videos: [],
+        selectedVideo: null
+      };
+    },
+    computed: {
+
     },
     methods: {
       onTermChange(searchTerm) {
@@ -42,12 +64,16 @@
             }
           })
           .then(response => {
-            console.log(response);
-            //this.videos = response.data.items;
+            //console.log(response.data.items)
+            this.videos = response.data.items;
+            //console.log(response.data.items[0].snippet.description);
+            //this.selectedVideo = response.data.items
           });
-        console.log(this.showTerm);
+      },
+      onSelect(video) {
+        this.selectedVideo = video;
+        //console.log(this.selectedVideo);
       }
-
     }
   };
 </script>
@@ -80,8 +106,6 @@
     grid-column: 1/4;
   }
 
-  .searchDiv {}
-
   #videoDisplay {
     border: 5px solid black;
     grid-column: 1/3;
@@ -91,16 +115,35 @@
     border: 5px solid red;
   }
 
-  /*#nav {
-    padding: 30px;
+  #videoList ul li {
+    list-style-type: none;
   }
 
-  #nav a {
-    font-weight: bold;
-    color: #2c3e50;
+  .wrapper {
+    display: flex;
+    align-items: flex-start;
+    border-bottom: 1px solid lightgrey;
+    margin: 2px;
   }
 
-  #nav a.router-link-exact-active {
-    color: #42b983;
-  }*/
+  i.fab.fa-youtube::before {
+    color: red;
+  }
+
+  i.fas.fa-search {
+    background-color: #e7e7e7;
+    border: none;
+    color: #111;
+    /*padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;*/
+    cursor: pointer;
+  }
+
+  .searchDiv input {
+    width: 800px;
+  }
 </style>
