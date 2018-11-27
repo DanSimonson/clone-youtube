@@ -9,8 +9,10 @@
         </div>
       </div>
       <div id="videoDisplay">
-        <div v-if="selectedVideo">
-          {{selectedVideo.snippet.description}}
+        <iframe :src="videoUrl" />
+        <div v-if="selectedVideo" class='details'>
+          <h4>{{selectedVideo.snippet.title}} </h4>
+          <p>{{selectedVideo.snippet.description}} </p>
         </div>
       </div>
       <div id="videoList">
@@ -46,11 +48,16 @@
       return {
         newTerm: '',
         videos: [],
-        selectedVideo: null
+        selectedVideo: null,
+        videoID: ''
       };
     },
     computed: {
-
+      videoUrl() {
+        const videoId = this.videoID;
+        return `https://www.youtube.com/embed/${videoId}`;
+        console.log('videoID:')
+      }
     },
     methods: {
       onTermChange(searchTerm) {
@@ -72,7 +79,8 @@
       },
       onSelect(video) {
         this.selectedVideo = video;
-        //console.log(this.selectedVideo);
+        this.videoID = video.id.videoId;
+        console.log(video.id.videoId);
       }
     }
   };
@@ -109,6 +117,13 @@
   #videoDisplay {
     border: 5px solid black;
     grid-column: 1/3;
+  }
+
+  .details {
+    margin: 10px 2px 0 2px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
   }
 
   #videoList {
