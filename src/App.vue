@@ -150,6 +150,10 @@
     margin: 2px;
   }
 
+  .wrapper:hover {
+    cursor: pointer;
+  }
+
   i.fab.fa-youtube::before {
     color: red;
   }
