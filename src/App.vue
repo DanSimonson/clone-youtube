@@ -174,7 +174,7 @@
   /**** media queries *****/
   @media only screen and (max-width: 768px) {
     #content {
-      border: 5px solid blue;
+      /*border: 5px solid blue;*/
       margin: 0 auto;
       display: grid;
       max-width: 960px;
