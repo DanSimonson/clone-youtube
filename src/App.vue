@@ -8,8 +8,11 @@
           <button @click="onTermChange(newTerm)"><i class=" fas fa-search"></i></button>
         </div>
       </div>
+      <!-- <div v-if="shrunk" class='addjust'>-->
       <div id="videoDisplay">
-        <iframe :src="videoUrl" />
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" :src="videoUrl" />
+        </div>
         <div v-if="selectedVideo" class='details'>
           <h4>{{selectedVideo.snippet.title}} </h4>
           <p>{{selectedVideo.snippet.description}} </p>
@@ -29,27 +32,28 @@
           </li>
         </ul>
       </div>
+      <!-- </div>-->
     </div>
+    <AppFooter></AppFooter>
   </div>
 </template>
 <script>
-  import Search from "./components/Search";
-  import List from "./components/List";
+  import AppFooter from "./components/AppFooter"
   const API_KEY = "AIzaSyAeieUFVgxZH5g_xpIQTtoLa8SBw8HGJl8";
   import axios from "axios";
 
   export default {
     name: "App",
     components: {
-      Search,
-      List
+      AppFooter
     },
     data() {
       return {
         newTerm: '',
         videos: [],
         selectedVideo: null,
-        videoID: ''
+        videoID: '',
+        //shrunk: false
       };
     },
     computed: {
@@ -73,14 +77,15 @@
           .then(response => {
             //console.log(response.data.items)
             this.videos = response.data.items;
-            //console.log(response.data.items[0].snippet.description);
+            //this.videoID = 
+            console.log(videos[0].id.videoID);
             //this.selectedVideo = response.data.items
           });
       },
       onSelect(video) {
         this.selectedVideo = video;
         this.videoID = video.id.videoId;
-        console.log(video.id.videoId);
+        //console.log(video.id.videoId);
       }
     }
   };
@@ -88,7 +93,7 @@
 
 <style>
   #app {
-    border: 5px solid orange;
+    /*border: 5px solid orange;*/
     /*font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -97,7 +102,7 @@
   }
 
   #content {
-    border: 5px solid blue;
+    /*border: 5px solid blue;*/
     margin: 0 auto;
     display: grid;
     max-width: 960px;
@@ -110,12 +115,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 5px solid green;
+    /*border: 5px solid green;*/
     grid-column: 1/4;
   }
 
   #videoDisplay {
-    border: 5px solid black;
+    /*border: 5px solid black;*/
     grid-column: 1/3;
   }
 
@@ -127,7 +132,7 @@
   }
 
   #videoList {
-    border: 5px solid red;
+    /*border: 5px solid red;*/
   }
 
   #videoList ul li {
@@ -159,6 +164,48 @@
   }
 
   .searchDiv input {
-    width: 800px;
+    width: 600px;
   }
+
+  /**** media queries *****/
+  @media only screen and (max-width: 768px) {
+    #content {
+      border: 5px solid blue;
+      margin: 0 auto;
+      display: grid;
+      max-width: 960px;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, minmax(150px, auto));
+      /*grid-template-rows: ;*/
+    }
+
+    #videoDisplay {
+      /*border: 5px solid black;*/
+      grid-column: 1/4;
+    }
+
+    #videoList {
+      /*border: 5px solid red;*/
+      grid-column: 1/4;
+    }
+
+    .searchDiv input {
+      width: 320px;
+    }
+
+  }
+
+  @media only screen and (max-width: 499px) {
+    .searchDiv input {
+      width: 240px;
+    }
+  }
+
+  @media only screen and (max-width: 390px) {
+    .searchDiv input {
+      width: 175px;
+    }
+  }
+
+  @media only screen and (max-width: 700px) {}
 </style>
