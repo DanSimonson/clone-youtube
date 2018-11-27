@@ -86,7 +86,9 @@
             </ul>
         </section>
         <section class="copyright myBtn">
-            <strong class="subheading">&copy;2018 — mariposaweb</strong>
+            <a class="footerA myBtn" href="https://mariposaweb.net" target="_blank"><strong class="subheading">&copy;2018
+                    —
+                    mariposaweb</strong></a>
         </section>
     </div>
 </template>
@@ -96,12 +98,19 @@
         padding: 0;
     }
 
+    .footerA {
+        text-decoration: none;
+
+    }
+
     .social {
-        background: #01579B;
+        /*background: #01579B;*/
+        background: red
     }
 
     .copyright {
-        background: #01579B;
+        /*background: #01579B;*/
+        background: red;
         text-align: center;
     }
 
@@ -116,21 +125,25 @@
     }
 
     i.fab.fa-github-square {
-        color: #1565C0;
+        /*color: #1565C0;*/
+        color: red;
     }
 
     i.fab.fa-twitter {
-        color: #1565C0;
+        /*color: #1565C0;*/
+        color: red;
+
 
     }
 
     i.fab.fa-facebook-square {
-        color: #1565C0;
-        /*black;*/
+        /*color: #1565C0;*/
+        color: red;
     }
 
     i.fab.fa-linkedin {
-        color: #1565C0;
+        /*color: #1565C0;*/
+        color: red;
     }
 
     .info {
