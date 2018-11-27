@@ -87,6 +87,10 @@
         this.videoID = video.id.videoId;
         //console.log(video.id.videoId);
       }
+    },
+    mounted() {
+      //this.mymethod('success');
+      this.onTermChange('vue.js');
     }
   };
 </script>
